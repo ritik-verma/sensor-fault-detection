@@ -19,21 +19,24 @@ The problem is to reduce the cost due to unnecessary repairs. So it is required 
 
 ## Infrastructure Required.
 
-1. Git Actions
+1. AWS S3
+2. AWS EC2
+3. AWS ECR
+4. Git Actions
 
 ## How to run?
-Before we run the project, make sure that you are having MongoDB in your local system, with Compass since we are using MongoDB for data storage.
+Before we run the project, make sure that you are having MongoDB in your local system, with Compass since we are using MongoDB for data storage. You also need AWS account to access the service like S3, ECR and EC2 instances.
 
 ## Data Collections
-![image](./flowcharts/data%20pipeline.drawio.png)
-
-## Project Architecture
-![image](./flowcharts/Project%20architecture.drawio.png)
+![image](https://user-images.githubusercontent.com/57321948/193536736-5ccff349-d1fb-486e-b920-02ad7974d089.png)
 
 
-## Deployment Architecture
-![image](./flowcharts/deployment%20architecture.drawio.png)
+## Project Archietecture
+![image](https://user-images.githubusercontent.com/57321948/193536768-ae704adc-32d9-4c6c-b234-79c152f756c5.png)
 
+
+## Deployment Archietecture
+![image](https://user-images.githubusercontent.com/57321948/193536973-4530fe7d-5509-4609-bfd2-cd702fc82423.png)
 
 ### Step 1: Clone the repository
 ```bash
@@ -94,5 +97,8 @@ docker build --build-arg MONGODB_URL=<MONGODB_URL>
 ```
 docker run -d -p 8080:8080 <IMAGE_NAME>
 ```
-
+then run 
+```
+python main.py
+```
 
