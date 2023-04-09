@@ -19,40 +19,35 @@ The problem is to reduce the cost due to unnecessary repairs. So it is required 
 
 ## Infrastructure Required.
 
-1. AWS S3
-2. AWS EC2
-3. AWS ECR
-4. Git Actions
-5. Terraform
+1. Git Actions
 
 ## How to run?
-Before we run the project, make sure that you are having MongoDB in your local system, with Compass since we are using MongoDB for data storage. You also need AWS account to access the service like S3, ECR and EC2 instances.
+Before we run the project, make sure that you are having MongoDB in your local system, with Compass since we are using MongoDB for data storage.
 
 ## Data Collections
-![image](https://user-images.githubusercontent.com/57321948/193536736-5ccff349-d1fb-486e-b920-02ad7974d089.png)
+![image](./flowcharts/data%20pipeline.drawio.png)
+
+## Project Architecture
+![image](./flowcharts/Project%20architecture.drawio.png)
 
 
-## Project Archietecture
-![image](https://user-images.githubusercontent.com/57321948/193536768-ae704adc-32d9-4c6c-b234-79c152f756c5.png)
-
-
-## Deployment Archietecture
-![image](https://user-images.githubusercontent.com/57321948/193536973-4530fe7d-5509-4609-bfd2-cd702fc82423.png)
+## Deployment Architecture
+![image](./flowcharts/deployment%20architecture.drawio.png)
 
 
 ### Step 1: Clone the repository
 ```bash
-git clone https://github.com/sethusaim/Sensor-Fault-Detection.git
+git clone https://github.com/Kirtimaanwani/sensor-fault-detection.git
 ```
 
 ### Step 2- Create a conda environment after opening the repository
 
 ```bash
-conda create -n sensor python=3.7.6 -y
+conda create -p venv/ python=3.8 -y
 ```
 
 ```bash
-conda activate sensor
+conda activate venv/
 ```
 
 ### Step 3 - Install the requirements
@@ -62,19 +57,15 @@ pip install -r requirements.txt
 
 ### Step 4 - Export the environment variable
 ```bash
-export AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID>
+export MONGODB_URL="Paste your mongoDB Url here"
 
-export AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY>
-
-export AWS_DEFAULT_REGION=<AWS_DEFAULT_REGION>
-
-export MONGODB_URL="mongodb+srv://<username>:<password>@ineuron-ai-projects.7eh1w4s.mongodb.net/?retryWrites=true&w=majority"
+sample_url = mongodb+srv://<user_name>:<password>@cluster0.1p6mzvm.mongodb.net/test
 
 ```
 
 ### Step 5 - Run the application server
 ```bash
-python app.py
+python main.py
 ```
 
 ### Step 6. Train application
@@ -93,10 +84,10 @@ http://localhost:8080/predict
 
 1. Check if the Dockerfile is available in the project directory
 
+
 2. Build the Docker image
 ```
-docker build --build-arg AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID> --build-arg AWS_SECRET_ACCESS_KEY=<AWS_SECRET_ACCESS_KEY> --build-arg AWS_DEFAULT_REGION=<AWS_DEFAULT_REGION> --build-arg MONGODB_URL=<MONGODB_URL> . 
-
+docker build --build-arg MONGODB_URL=<MONGODB_URL>
 ```
 
 3. Run the Docker image
@@ -104,24 +95,4 @@ docker build --build-arg AWS_ACCESS_KEY_ID=<AWS_ACCESS_KEY_ID> --build-arg AWS_S
 docker run -d -p 8080:8080 <IMAGE_NAME>
 ```
 
-To run the project  first execute the below commmand.
-MONGO DB URL: 
-```
-mongodb+srv://avnish:XglZZ9OkjjUw74pZ@ineuron-ai-projects.7eh1w4s.mongodb.net/admin?authSource=admin&replicaSet=atlas-okvkrd-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true
-```
-windows user
 
-```
-MONGO_DB_URL=mongodb+srv://avnish:XglZZ9OkjjUw74pZ@ineuron-ai-projects.7eh1w4s.mongodb.net/admin?authSource=admin&replicaSet=atlas-okvkrd-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true
-```
-
-Linux user
-
-```
-export MONGO_DB_URL=mongodb+srv://avnish:XglZZ9OkjjUw74pZ@ineuron-ai-projects.7eh1w4s.mongodb.net/admin?authSource=admin&replicaSet=atlas-okvkrd-shard-0&w=majority&readPreference=primary&appname=MongoDB%20Compass&retryWrites=true&ssl=true
-```
-
-then run 
-```
-python main.py
-```
